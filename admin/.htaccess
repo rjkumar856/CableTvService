@@ -1,0 +1,28 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html
+
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?_route_=$1 [NC,L,QSA]
+</IfModule>
+<IfModule mod_php5.c>
+php_value post_max_size 5M
+php_value upload_max_filesize 5M
+php_value memory_limit 128M
+php_value max_execution_time 300
+php_value max_input_time 300
+php_value session.gc_maxlifetime 1200
+</IfModule>
+
+AddType text/html .html
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
